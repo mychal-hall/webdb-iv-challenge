@@ -4,7 +4,7 @@ module.exports = {
   development: {
     client: "sqlite3",
     connection: {
-      filename: "./recipebook.sqlite3"
+      filename: "./data/recipebook.sqlite3"
     },
     migrations: {
       tableName: "knex_migrations",
