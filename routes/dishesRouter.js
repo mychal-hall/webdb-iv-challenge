@@ -41,6 +41,29 @@ router.get("/:id", async (req, res) => {
     });
   }
 });
-// Adds a new dish to the database -- POST /api/dishes
 
+// Adds a new dish to the database -- POST /api/dishes
+router.post("/", validateDish, async (req, res) => {
+  try {
+    const dish = await Dishes.insertDish(req.body);
+    res.status(201).json(dish.id);
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ message: "Error creating a new Dish!" });
+  }
+});
+
+// Custom middleware
+
+function validateDish(req, res, next) {
+  if (req.body && Object.keys(req.body).length) {
+    if (req.body.name !== "") {
+      next();
+    } else {
+      res.status(400).json({ message: "Please name the dish" });
+    }
+  } else {
+    res.status(500).json({ message: "Critical Fail - Unable to comply" });
+  }
+}
 module.exports = router;

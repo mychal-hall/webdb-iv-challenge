@@ -22,5 +22,7 @@ function findDishById(id) {
 }
 
 function insertDish(dish) {
-  
+  return db("dishes")
+    .insert(dish)
+    .then(ids => ({ id: ids[0] }));
 }
